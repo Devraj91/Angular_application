@@ -1,0 +1,49 @@
+h1 {
+    margin-top: 35px;
+}
+
+.del {
+    margin-left: 15px;
+    padding: 5px;
+    width: 70px;
+}
+
+.text {
+    text-align: center;
+}
+
+.flow {
+    height: 20px;
+    border: 1px dotted black;
+    overflow: auto;
+}
+
+.input{
+    padding:5px;
+}
+
+.fade.in {
+    opacity: 1 !important;
+  }
+  
+  .modal.in .modal-dialog {
+    -webkit-transform: translate(0, 0);
+    -ms-transform: translate(0, 0);
+    -o-transform: translate(0, 0);
+    transform: translate(0, 0);
+    
+  }
+  .modal-backdrop {
+      /* bug fix - no overlay */   
+      display: none;    
+  }
+  .icon-formatting{
+    margin-left:20px;
+    cursor: pointer;
+  }
+  .mouse{
+    cursor:pointer;
+  }  
+  .gap{
+    margin:10px;
+}

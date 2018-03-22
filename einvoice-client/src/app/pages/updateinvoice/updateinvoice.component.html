@@ -1,0 +1,248 @@
+<div style="padding-left: 10px;">
+    <fieldset>
+        <legend><b>Invoice Details</b></legend>
+    </fieldset>
+
+    <div>
+        <!-- <div class="col-sm-2">
+      <select  class="form-control"  style="height:34px;margin-top:10px;" #name="ngModel" name="year"   [(ngModel)]="year"  (ngModelChange)="selectyear($event)" placeholder="Select year">
+        <option [value]="year" *ngFor="let year of years">{{year}} </option>
+       </select>
+  </div> -->
+        <div *ngIf="isLoading" class="spinner spinner-md" style="margin-left:45%;">
+            <i class="fa fa-spinner fa-spin" style="font-size:42px"></i><span style="font-size:30px">&nbsp;Loading..</span>
+        </div>
+        <div class="my-container">
+            <ngx-loading [show]="blurloader" [config]="{
+                    backdropBackgroundColour: 'rgba(255,255,255,0.3)', backdropBorderRadius: '10px',
+                    primaryColour: '#ffffff', secondaryColour: '#ffffff', tertiaryColour: '#ffffff',fullScreenBackdrop:true }"></ngx-loading>
+        </div>
+
+
+        <input type='text' class="search_box" placeholder='MembershipID...' (keyup)='memberFilter($event,"MembershipId")' />
+        <input type='text' class="search_box" placeholder='Search Member Name' (keyup)='memberFilter($event,"MemberName")' />
+
+    </div>
+    <!--Grid-->
+    <div style="overflow:auto;padding:10px 5px 20px 0px">
+
+        <ngx-datatable #table style='width:auto;' [rows]="rows" [columns]="columns" [headerHeight]="47" [rowHeight]="'*'" [columnMode]="'standard'" [scrollbarV]="false" [scrollbarH]="true" trackScroll (bottom)='onScroll()'>
+        </ngx-datatable>
+    </div>
+</div>
+<!--template for custome view on ui should be out of scope another template-->
+<ng-template #updatepaidamountTpl let-row="row" let-value="value">
+    <div class="toggle-switch">
+        <p>
+            <span class='menu-icon icon-add icon-formatting' (click)="getRow(row)" title="Add Paid Amount" data-toggle="modal" data-target="#addPaidAmt" data-backdrop="false"></span>
+            <span class='menu-icon icon-edit icon-formatting' (click)="getRow(row)" title="Edit Invoice" data-toggle="modal" data-target="#editInvoice" data-backdrop="false"></span>
+            <a class='mouse' href="#" (click)="getPdf(row.invoiceId)" title="View Invoice" data-toggle="modal" data-target="#viewInvoice" data-backdrop="false" target="_blank"><i class="fa fa-file-pdf-o icon_black"></i></a>
+            <a *ngIf="!row.isCancelable" class='mouse ' href="#" (click)="getReceiptPdf(row.invoiceId)" title="View Receipt" data-toggle="modal" data-target="#viewReceipt" data-backdrop="false" target="_blank"><i class="fa fa-file-text-o icon_black"></i></a>
+            <span *ngIf="row.isCancelable" class='menu-icon icon-menuclose icon-formatting' (click)="getRow(row)" title="Cancel Invoice" data-toggle="modal" data-target="#cancelInvoice" data-backdrop="false"></span>
+            <!--DELETE      <i class="fa fa-trash-o"></i> -->
+
+
+        </p>
+    </div>
+</ng-template>
+
+<!--template for custome view on ui should be out of scope another template-->
+<ng-template #isTaxApplicableTpl let-row="row" let-value="value">
+    <div class="toggle-switch">
+        <input [disabled]="true" type="checkbox" [attr.checked]="value==1?true:null" checked [id]="row.isTaxApplicable" />
+        <label [for]="row.isTaxApplicable"></label>
+    </div>
+</ng-template>
+<!-- Modal -->
+<div id="addPaidAmt" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Add Paid Amount</h4>
+                <button type="button" class="close" data-dismiss="modal" (click)="clearalldata()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <!-- <div class="row gap">
+                            <div class="col-sm-5">Mode of Payment</div>
+                            <div class="col-sm-7"><input class="form-control" type="text" name="mode" [(ngModel)]="mode" ></div>
+                        </div> -->
+                <div class="row gap">
+                    <div class="col-sm-5">Mode of Payment</div>
+                    <div class="col-sm-7">
+                        <select class="form-control" style="height:34px" #mod name="mode" [(ngModel)]="mode" (ngModelChange)="selMode(mode.value)">
+                            <option value="" disabled="true" selected="true" >Mode</option> 
+                            <option [value]="mode" *ngFor="let mode of modes;">{{mode.method}} </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row gap">
+                    <div class="col-sm-5">Transaction Details</div>
+                    <div class="col-sm-7"> <textarea class="form-control" rows="3" placeholder="Enter Tanscation Details " name="transactionDetails" [(ngModel)]="transactionDetails" id="transactionDetails"></textarea></div>
+                </div>
+                <div class="row gap">
+                    <div class="col-sm-5">Amount</div>
+                    <div class="col-sm-7"><input class="form-control" type="text" placeholder="Enter the Amount " name="baseamt" [(ngModel)]="baseamt"></div>
+                </div>
+                <div class="row gap">
+                    <div class="col-sm-5">Include TDS
+                    </div>
+                    <div class="col-sm-7">
+                        <div class="row ">
+                            <div class="col-sm-2">
+                                <input class="form-control" style="margin-top:10px;text-decoration:none" [value]='true' type="checkbox" [(ngModel)]="isTds" (click)="enableTds()" name="isTds">
+                            </div>
+                            <div class="col-sm-10">
+                                <select [hidden]="seltds" class="form-control" style="height:34px" #tdspercent name="tds" [(ngModel)]="tds" (change)="selTds(tdspercent.value)">
+                          <option value="0" disabled="true" selected>TDS Rate</option> 
+                        <option [value]="tds" *ngFor="let tds of Arrtds;">{{tds+"%"}} </option>
+                       </select>
+
+                                <select [hidden]="seltds" class="form-control" style="height:34px" #amttype name="type" [(ngModel)]="type" (ngModelChange)="selAmtType(amttype.value)">
+                              <option value="" disabled="true" selected>Amount Type</option> 
+                            <option [value]="type" *ngFor="let type of AmtType;">{{type}} </option>
+                           </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row gap">
+                    <div class="col-sm-5">Total Amount</div>
+                    <div class="col-sm-7"><input class="form-control" type="text" name="totalamt" [readonly]="true" [(ngModel)]="totalamt"></div>
+                </div>
+
+
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default mouse" data-dismiss="modal" (click)='addPaidAmount()'>Add</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal -->
+<div id="editInvoice" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Edit Invoice Details</h4>
+                <button type="button" class="close" data-dismiss="modal" (click)="clearalldata()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="row gap">
+                    <div class="col-sm-4">Year
+                    </div>
+                    <div class="col-sm-6">
+                        <select class="form-control col-sm-6" style="height:34px;" #y name="poYear" [(ngModel)]="year" (change)="selectpoyear(y.value)" disabled>
+                  <option [value]="year" selected >{{year}}</option>
+                  </select>
+                    </div>
+                </div>
+                <div class="row gap">
+                    <div class="col-sm-4">PO Number</div>
+                    <div class="col-sm-6"><input class="form-control" type="text" name="poNumber" [(ngModel)]="poNumber" #po (ngModelChange)="setPO(po.value)"></div>
+                </div>
+                <div class="row gap">
+                    <div class="col-sm-4">City
+                    </div>
+                    <div class="col-sm-6">
+                        <select class="form-control" style="height:34px;margin-top:10px;" #name="ngModel" name="city" [(ngModel)]="city" (ngModelChange)="selectcity($event)" placeholder="Select city">
+                        <option [value]="city.name" *ngFor="let city of cities" [id]="city.id">{{city.name}} </option>
+                        <option [value]="cityname" selected>{{cityname}} </option>
+                       </select>
+                    </div>
+                </div>
+                <div class="row gap">
+                    <div class="col-sm-4">Street</div>
+                    <div class="col-sm-6"><input class="form-control" type="text" name="street" [(ngModel)]="street" #pstreet (ngModelChange)="setStreet(pstreet.value)"></div>
+                </div>
+                <div class="row gap">
+                    <div class="col-sm-4">Pin</div>
+                    <div class="col-sm-6"><input class="form-control" type="text" name="pin" [(ngModel)]="pin" #ppin (ngModelChange)="setPin(ppin.value)"></div>
+                </div>
+                <div class="row gap">
+                    <div class="col-sm-4">Fax</div>
+                    <div class="col-sm-6"><input class="form-control" type="text" name="fax" [(ngModel)]="fax" #pfax (ngModelChange)="setFax(pfax.value)"></div>
+                </div>
+                <div class="row gap">
+                    <div class="col-sm-4">Phone</div>  
+                    <div class="col-sm-6"><input class="form-control" type="text" name="phone" [(ngModel)]="phone" #pphone (ngModelChange)="setPhone(pphone.value)"></div>
+                </div>
+                <div class="row gap ">
+                    <div class="col-sm-4">GST</div>
+                    <div class="col-sm-6">
+                        <input class="form-control" name="gstNo" type="text" #ggst [(ngModel)]="gstNo" (ngModelChange)="setGst(ggst.value)">
+                    </div>
+                </div>
+                <div class="row gap search-box">
+                    <div class="col-sm-4">CC</div>
+                    <div class="col-sm-6">
+                        <input class="form-control search-input" name="cc" type="text" #pcc [(ngModel)]="cc" (ngModelChange)="setCc(pcc.value)">
+                    </div>
+                </div>
+                <div class="row gap search-box">
+                    <div class="col-sm-4">TO</div>
+                    <div class="col-sm-6">
+                        <input class="form-control search-input" name="toEmail" type="text" #to [(ngModel)]="toEmail" (ngModelChange)="setTo(to.value)">
+                    </div>
+                </div>
+
+                <div class="row gap">
+                    <div class="col-sm-4">Tax Applicable
+                    </div>
+                    <div class="col-sm-2">
+                        <input class="form-control" [disabled]="disabletax" style="margin-top:10px;text-decoration:none" [value]='isTaxApplicable' type="checkbox" [(ngModel)]="isTaxApplicable" name="isTaxApplicable" #x (ngModelChange)="selectTaxApplicable($event)" style="zoom:1.5;margin-top:2px">
+                    </div>
+                </div>
+                <div class="row gap">
+                    <div class="col-sm-4">Performa
+                    </div>
+                    <div class="col-sm-2">
+                        <input class="form-control" [disabled]="performa" style="margin-top:10px;text-decoration:none;zoom:1.5;margin-top:2px" [value]='isPerforma' type="checkbox" [(ngModel)]="isPerforma" name="isPerforma" #x (ngModelChange)="selectPerforma($event)">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default mouse" data-dismiss="modal" (click)='editPO()'>Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal -->
+<div id="cancelInvoice" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Cancel Invoice</h4>
+                <button type="button" class="close" data-dismiss="modal" (click)="clearalldata()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="row gap">
+                    <div class="col-sm-4">Remarks</div>
+                    <div class="col-sm-6"><textarea class="form-control" type="text" name="remarks" [(ngModel)]="remarks" #rmk (ngModelChange)="setRemarks(rmk.value)"></textarea></div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default mouse" data-dismiss="modal" (click)='cancelInvoice()'>Cancel Invoice</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--View Invoice pdf 
+<div id="viewInvoice " class="modal fade" role="dialog">
+    <div class="modal-dialog">
+<div style="width:100%;height:100%;position:relative;background-color:white"> <object height="100%" type="application/pdf" width="100%" data="http://eloquentjavascript.net/Eloquent_JavaScript.pdf" internalinstanceid="41"> <param name="view" value="Fit"> </object> </div>
+  <embed ng-src="{{content}}" style="width:200px;height:200px;"></embed>
+  </div>
+</div>-->

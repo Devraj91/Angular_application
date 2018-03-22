@@ -1,0 +1,31 @@
+<div style="padding-left: 10px;">
+<fieldset><legend><b>Member Details</b></legend></fieldset>
+<!--Member -->
+<div *ngIf="isLoading" class="spinner spinner-md" style="margin-left:45%;">
+        <i class="fa fa-spinner fa-spin" style="font-size:42px"></i><span  style="font-size:30px">&nbsp;Loading..</span>
+    </div>
+
+<!--search inputs--> 
+<input   type='text' class="search_box" placeholder='Search MembershipId' (keyup)='memberFilter($event,"MembershipId")'/>
+<input   type='text' class="search_box" placeholder='Search Member Name' (keyup)='memberFilter($event,"MemberName")'/>
+
+<!--Grid-->
+<div style="overflow:auto;padding:10px 5px 20px 0px">
+        <ngx-datatable #table style='width:auto;' [rows]="rows" [columns]="columns" [headerHeight]="47" [rowHeight]="'*'" [columnMode]="'standard'" [scrollbarV]="false" [scrollbarH]="true" trackScroll (bottom)='onScroll()'></ngx-datatable>
+    </div>
+</div>
+
+<!--template for custome view on ui should be out of scope another template-->
+<ng-template #memberDiscontinuedTpl let-row="row" let-value="value">
+ <div class="toggle-switch">
+      <input [disabled]="true" type="checkbox" [attr.checked]="value==1?true:null" checked [id]="row.isActive"/>
+      <label [for]="row.isActive"></label>  
+ </div>
+</ng-template>
+<!-- <ng-template #memberSyncTpl let-row="row" let-value="value">
+                 <div>
+                    <a (click)="manualsync(row.email)">Sync Now</a>
+                    <label [for]="row.email"></label>
+                 </div>
+</ng-template>--> 
+

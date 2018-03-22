@@ -1,0 +1,15 @@
+body{
+    background: white
+}
+
+.mouse{
+
+    padding:7px;
+    width:110px;
+    text-align: center;
+
+  }  
+  td {
+    padding-top: .3em;
+    padding-bottom: .3em;
+}

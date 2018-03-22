@@ -1,0 +1,93 @@
+
+<div class="wrapper" >
+  
+    <div class="row row_wrap">
+      <div class="col-sm-4" ><a [routerLink]="['/home']" class="btn btn-link"> <img src="./assets/nasscom.png" alt="Nasscom Logo" width="300" height="80" /></a></div> 
+      <div class="col-sm-7" ></div>
+     </div>
+   <form  name="form" (ngSubmit)="f.form.valid && login()" #f="ngForm" novalidate >
+    <div class="row row_wrap" >
+      <div class="col-sm-4"></div>
+      <div class="col-sm-8">
+      <div class="row">
+        <div class="col-sm-5"> <p class='menu-icon icon-ienvoice'></p></div>
+      </div>
+     <div class="row">
+        <div class="col-sm-5"> <h1 class="align_txt">E-Invoice</h1></div>
+      </div>
+       <div class="row rowmargin">
+        <div class="col-sm-5" [ngClass]="{ 'has-error': f.submitted && !username.valid }" > 
+           <input class="form-control" name="username" type="email"  placeholder="Email Id" [(ngModel)]="model.username" #username="ngModel" ng-maxlength="50"
+            ng-trim="true" email="true" required>
+           <div *ngIf="f.submitted && !username.valid" class="help-block">Username is required</div> 
+        </div>
+      </div>
+      
+      <div class="row rowmargin">
+        <div class="col-sm-5" [ngClass]="{ 'has-error': f.submitted && !password.valid }">           
+           <input class="form-control " name="password" type="password"  placeholder="Password" [(ngModel)]="model.password" #password="ngModel" ng-minLength="4"
+            ng-maxlength="20" ng-trim="true" required >
+            <div *ngIf="f.submitted && !password.valid" class="help-block">Password is required</div>            
+        </div> 
+      </div> 
+
+      <div class="row rowmargin">
+        <div class="col-sm-5">
+        <input type="checkbox" [(ngModel)]="model.rememberMe" #rememberMe="ngModel" name="rememberMe" />
+        <span class="align_txt">Remember me</span>
+        <div *ngIf="errMsg" style="color:indianred; font-weight: bold">{{errMsg}}</div>
+        </div>        
+      </div>      
+      
+
+      <div class="row btn_margin">
+        <div class="col-sm-5 align_txt" > 
+        <button type="submit" class="btn btn-secondary btn-lg" [disabled]="loading || !f.form.valid">Login</button>
+          <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+        </div>
+      </div>
+
+     <div class="row rowmargin">
+        <div class="col-sm-5" > 
+            <p class="align_txt"> <a href="" class="fgt_pwd" data-toggle="modal" data-target="#myModal" data-backdrop="false">Forgot Password?</a></p>
+        </div>
+      </div>
+      </div>
+    </div>
+    </form>
+
+<!--forget password-->
+    <!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog" style="color:black" >
+  <div class="modal-dialog" style="margin-top:25%;" >
+    <form  name="form" (ngSubmit)="fp.form.valid" #fp="ngForm" novalidate >
+    <!-- Modal content-->
+    <div class="modal-content modal_box">
+      <div class="modal-header wrapper">
+        <h4 class="modal-title align_txt" style="width:100%;">Forgot Password?</h4>
+        <button type="button" class="close" style="margin-right:10px;" data-dismiss="modal">&times;</button>        
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-sm-5 "><h5>Enter your recovery Email:</h5></div>
+          <div class="col-sm-5" [ngClass]="{ 'has-error': fp.submitted && !useremail.valid }" > 
+            <input class="form-control" name="useremail" type="email"  placeholder="Email Id" [(ngModel)]="model.useremail" #useremail="ngModel" ng-maxlength="50"
+             ng-trim="true" email="true" required>
+            <div *ngIf="fp.submitted && !useremail.valid" class="help-block">Invalid EMail Id</div> 
+         </div>
+        </div>
+      </div> 
+      <div class="modal-footer ">
+        <button type="button" class="btn btn-secondary btn-lg " data-dismiss="modal" [disabled]="!fp.form.valid" (click)="forgetPassword()">Send</button>
+      </div>
+    </div> 
+  </form> 
+  </div>
+</div>
+
+    
+</div>
+<div >
+
+
+

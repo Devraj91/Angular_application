@@ -1,0 +1,15 @@
+.ngx-datatable{
+    background: white!important;
+    border: 1px solid #DCDCDC;
+    }
+
+
+      
+.search_box{ 
+    padding:2px;
+    margin-top:15px ;
+    width:220px;
+    height:35px;
+    border: 1px solid #DCDCDC;
+}
+

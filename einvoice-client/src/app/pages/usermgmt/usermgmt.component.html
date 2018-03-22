@@ -1,0 +1,126 @@
+<fieldset>
+    <legend><b>User Management</b></legend>
+  </fieldset>
+  
+  <!--Add tax config -->
+  <input type="button" value="Add" class="btn btn-primary" title="Add User" data-toggle="modal" data-target="#add" data-backdrop="false"/>
+  
+  <div style="overflow:auto;">
+  <!--Table grid -->
+  <table class="table table-bordered table-striped flow" style="width:85%">
+  <thead style="background-color: #006dcc; align-content: center;">
+    <tr class="text" >
+        <td style="width:50px">Email</td>   
+        <td style="width:150px">Password</td>
+        <td style="width:150px">Branch</td>
+        <td style="width:150px">Role</td>
+        <td style="width:180px">Actions</td>
+    </tr>
+  </thead>
+  <tbody class="text" style="align-content: center;">
+     <tr *ngIf="!users" >No Data to Display</tr>
+     <tr *ngFor="let user of users;let i=idx">                
+        <ng-template  [ngTemplateOutlet]="loadTemplate(user)" [ngOutletContext]="{ $implicit: user, idx: i }"></ng-template>
+    </tr>
+  </tbody>
+  </table>
+
+  </div>
+  
+  <!--The Html Template for Read-Only Rows-->
+  <div>
+  <ng-template #readOnlyTemplate let-user>     
+    <td>{{user.emailId}}</td>
+    <td>{{user.password}}</td>
+   <td>{{user.branch.name}}</td>
+    <td>{{user.roles[0].name}}</td>
+    <td class="text">
+        <div>
+            <input type="button"  value="Edit" class="btn btn-default del" (click)="editUser(user)" />
+  
+            <!-- <input type="button"  value="Delete" class="btn btn-danger del" (click)="deleteUser(user.id)"  /> -->
+        </div>
+    </td>
+  </ng-template>
+  </div>
+  <!--Ends Here-->
+  
+  <!--The Html Template for Editable Rows-->
+  <ng-template #editTemplate>
+  <td>
+    <input type="text" style="width:350px" [(ngModel)]="tempUser.emailId" ng-required="User Email required"/>
+  </td>
+  <td>
+      <input type="text" style="width:150px" [(ngModel)]="tempUser.password" ng-required="Password is required"/>
+    </td>
+  <td>
+    <select style="width:150px;height:30px"  name="region"  [(ngModel)]="tempUser.branch.name" (change)="getRegionSelected($event.target.value)" >
+      <option value="" disabled="true" selected="true">Select Region</option>
+     <option *ngFor="let region of Regions"  [value]="region">{{region}}</option>
+     </select>  
+    </td>
+
+    <td>
+        <select style="width:150px;height:30px"  name="role"  [(ngModel)]="tempUser.roles[0].name" (change)="getRoleSelected($event.target.value)" >
+          <option value="" disabled="true" selected="true">Select Role</option>
+         <option *ngFor="let role of Roles"  [value]="role">{{role}}</option>
+         </select>  
+        </td>
+  <td class="text">
+    <input type="button" value="Save" (click)="saveUser()" class="btn btn-success del" />
+  
+    <input type="button" value="Cancel" (click)="cancel()" class="btn btn-warning del" />
+  </td>
+  </ng-template>
+  <!--Ends Here-->
+  
+  <!-- Modal -->
+  <div id="add" class="modal fade" role="dialog" style="margin-top:10%;" >
+        <div class="modal-dialog">
+             
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Add New User</h4>
+              <button type="button" class="close" data-dismiss="modal" #closeBtn >&times;</button>
+            </div>
+            <form [formGroup]="userForm" (ngSubmit)="addNewUser(userForm.value)">
+            <div class="modal-body">                  
+              <div class="row gap form-group">
+                <div class="col-sm-4">Email</div>
+                <div class="col-sm-6"><input class="form-control" type="text" name="email" #amt  formControlName="email" ></div>
+              </div>
+              <div class="row gap form-group">
+                  <div class="col-sm-4">Password</div>
+                  <div class="col-sm-6"><input class="form-control" type="text" name="password" #amt  formControlName="password" ></div>
+                </div>
+                  <div class="row gap form-group">
+                      <div class="col-sm-4">Branch</div>
+                      <div class="col-sm-6">
+                      <select class="form-control" style="width:150px;height:30px"  formControlName="branch"  [(ngModel)]="region" (change)="getRegionSelected($event.target.value)" >
+                          <option value="" disabled="true" selected="true">Select Region</option>
+                         <option *ngFor="let region of Regions"  [value]="region">{{region}}</option>
+                         </select> 
+                    
+                   </div>
+                  </div>     
+                  <div class="row gap form-group">
+                      <div class="col-sm-4">Role</div>
+                      <div class="col-sm-6">
+                      <select class="form-control" style="width:150px;height:30px"  formControlName="role"  [(ngModel)]="role" (change)="getRoleSelected($event.target.value)" >
+                          <option value="" disabled="true" selected="true">Select Role</option>
+                         <option *ngFor="let role of Roles"  [value]="role">{{role}}</option>
+                         </select> 
+                    
+                   </div>
+                  </div>             
+            </div>
+            <div class="modal-footer">
+                    <button type="Submit" class="btn btn-default mouse" >Add User</button>
+            </div>
+        </form>
+          </div>
+      
+        </div>
+      </div>
+    

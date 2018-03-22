@@ -1,0 +1,136 @@
+<div class="jumbotron">
+
+    <div class="container c_back">
+        <h2 class="head">EMAIL TEMPLATE</h2>
+        <hr class="line" />
+        <form class="fmargin" [formGroup]="templateForm">
+            <div class="my-container">
+                <ngx-loading [show]="blurloader" [config]="{
+                            backdropBackgroundColour: 'rgba(255,255,255,0.3)', backdropBorderRadius: '10px',
+                            primaryColour: '#000000', secondaryColour: '#000000', tertiaryColour: '#000000',fullScreenBackdrop:true }"></ngx-loading>
+            </div>
+            <div class="form-group row ">
+                <label class="col-sm-2 control-label lpadding">Template<span class="star"><sup>*</sup></span></label>
+
+                <div class="col-sm-3">
+                    <select class="form-control" formControlName="template" (ngModelChange)="getTemplateByTemplateId($event)">
+         <option value="" disabled="true" selected="true">Select Template</option>
+        <option *ngFor="let emailTemplate of emailTemplates "  [value]="emailTemplate.templateType">{{emailTemplate.templateType}}</option>
+        </select>
+                    <div [hidden]="templateForm.controls['template'].pristine || templateForm.controls['template'].valid" class="alert alert-danger">
+                        Template cannot be blank.
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-2 control-label lpadding">From<span class="star"><sup>*</sup></span></label>
+                <div class="col-sm-3">
+                    <select class="form-control" formControlName="from" (ngModelChange)="onSelectSender($event)">
+      <option value="" disabled="true" selected="true">Select Sender</option>
+     <option *ngFor="let senderDetail of senderDetails"  [value]="senderDetail.senderId">{{senderDetail.designation}}</option>
+     </select>
+                    <div [hidden]="templateForm.controls['from'].pristine || templateForm.controls['from'].valid " class="alert alert-danger">
+                        From cannot be blank.
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-2 control-label lpadding">Recipient<span class="star"><sup>*</sup></span></label>
+                <div class="col-sm-3">
+                    <select class="form-control" formControlName="recipient" (ngModelChange)="OnEmailCategorySelect($event)">
+            <option value="" disabled="true" selected="true">Select Recipient</option>
+            <option *ngFor="let emailCategory of emailCategories "  [value]="emailCategory.value">{{emailCategory.category}}</option>
+        </select>
+                    <div [hidden]="templateForm.controls['from'].pristine || templateForm.controls['from'].valid" class="alert alert-danger">
+                        Recipient cannot be blank.
+                    </div>
+                </div>
+
+
+                <label [hidden]="memberEmailSelected" class="col-sm-2 control-label">Member Email<span class="star"><sup>*</sup></span></label>
+                <div [hidden]="memberEmailSelected" style="margin-left:-60px" class="col-sm-3">
+                    <input class="form-control " name="memberEmail" type="text" formControlName="memberEmail" [(ngModel)]=query (keyup)='memberList($event)'>
+                </div>
+                <div [hidden]="templateForm.controls['memberEmail'].pristine || templateForm.controls['memberEmail'].valid" class="alert alert-danger">
+                    Member Email cannot be blank.
+                </div>
+                <div class="search-result" *ngIf="filteredList?.length > 0">
+                    <ul *ngFor="let item of filteredList" class="list">
+                        <li class="items">
+                            <a (click)="select(item)">{{item}}</a>
+                        </li>
+                    </ul>
+                </div>
+
+
+
+                <label [hidden]="regionSelected" class="col-sm-2 control-label">Region<span class="star"><sup>*</sup></span></label>
+                <div [hidden]="regionSelected" style="margin-left:-60px" class="col-sm-3">
+                    <select class="form-control" formControlName="region" (ngModelChange)="onRegionSelect($event)">
+                <option value="" disabled="true" selected="true">Select Region</option>
+                <option *ngFor="let region of regions ,  let i = index" [value]="region" >{{region}}</option>
+            </select>
+                </div>
+                <div [hidden]="templateForm.controls['region'].pristine || templateForm.controls['region'].valid" class="alert alert-danger">
+                    Region cannot be blank.
+                </div>
+            </div>
+
+
+            <div class="form-group row">
+                <label class="col-sm-2 control-label lpadding">Subject<span class="star"></span></label>
+                <div class="col-sm-7">
+                    <input class="form-control" name="subject" type="text" formControlName="subject">
+                    <div [hidden]="templateForm.controls['subject'].pristine || templateForm.controls['subject'].valid " class="alert alert-danger">
+                        Subject cannot be blank.
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-2 control-label lpadding">Body<span class="star"></span></label>
+                <div #dataContainer class="col-sm-7">
+                    <!--<textarea class="form-control" type="text" rows="5" style="white-space:pre-wrap;" name="body" formControlName="body" id="emailBody"> </textarea>-->
+                    <ckeditor [config]="{uiColor: '#cfcfcf'}" [readonly]="false" debounce="500" class="form-control" type="text" rows="5" style="white-space:pre-wrap;" name="body" formControlName="body" id="body">
+                        <p>Hello <strong>world</strong></p>
+                    </ckeditor>
+
+                    <div [hidden]="templateForm.controls['body'].pristine || templateForm.controls['body'].valid" class="alert alert-danger error">
+                        The maximun word Limit is 4000.
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-2 control-label lpadding">Signature</label>
+                <div class="col-sm-3">
+                    <input class="form-control" name="signature" type="text" formControlName="signature">
+                </div>
+                <label class="col-sm-1 control-label">Designation</label>
+                <div class="col-sm-3">
+                    <input class="form-control" name="designation" type="text" formControlName="designation">
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-2 control-label lpadding">P.S.</label>
+                <div class="col-sm-7">
+                    <input class="form-control" name="ps" type="text" formControlName="ps">
+                </div>
+            </div>
+            <div class="form-group row">
+                <input class="form-control" name="templateId" type="hidden" formControlName="templateId">
+            </div>
+
+            <div class="row">
+                <div class="col-sm-5 align_txt">
+                    <button type="submit" class="btn btn-primary" [ngClass]="{disabled : !templateForm.valid}" id="sendButton" (click)="sendMail(emailTemplate)" [disabled]="!templateForm.valid">Send Email</button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+    <!--container-->
+</div>

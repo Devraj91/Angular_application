@@ -1,0 +1,173 @@
+<div style="height:90vh;overflow:hidden">
+    <ngb-tabset>
+      <!--Memeber tab -->
+        <ngb-tab> 
+            <ng-template ngbTabTitle ><b (click)="loadInvoiceSchedule()">Invoice Scheduler</b></ng-template>
+            <ng-template ngbTabContent>
+              <div style="border:solid 3px #F5F5F5;padding-left: 100px;padding-top: 30px;">
+
+            <!--Invoice scheduler form -->  
+              <form class="form-inline"  name="form" (ngSubmit)="sf.form.valid && updateInvoiceSchedule()" #sf="ngForm" novalidate>
+                
+                  <div class="form-group" style="width:100%" >
+        
+                    <!--Check type of schedule-->
+                    <div class="row" style="width:100%" >
+                    <div class="col-sm-4">
+                          <input type="checkbox"  [(ngModel)]="scheduler.isOn" name="isOn"  #isOn (ngModelChange)="ItypeCheckbox(isOn.value)" [value]="scheduler.isOn">
+                          <b>Invoice Scheduler</b>
+                      </div>
+                    </div> 
+
+                     <div style="width:100%" >
+                      <div class="row tmargin">
+                      <div class="col-sm-2 col-xsm-2">
+                         <h6 class="lalign">Schedule Date</h6>  
+                     </div>
+                     <div class="col-sm-5">
+                       <input class="form-control" type="date"  [(ngModel)]="scheduler.date" [disabled]=invoice_checked name="date" #date="ngModel"
+                         [value]="scheduler.date" (mouseleave)="dateValidation()" required>
+                         <div *ngIf="!validDate" class="form-text text-muted">Please Schedule the date and time from Today.</div>
+                         <div *ngIf="!invoice_checked && sf.submitted  && !date.valid" class="help-block">Date should be </div>
+                        </div> 
+                    
+                    
+                      </div>
+
+                      <div class="row tmargin">
+                        <div class="col-sm-2 col-xsm-2">
+                           <h6 class="lalign">Schedule Time</h6>  
+                       </div>  
+                       <div class="col-sm-5">
+                       <input class="form-control" type="time" [(ngModel)]="scheduler.time" [disabled]=invoice_checked name="time" #time="ngModel"
+                      [value]="scheduler.time"   required>
+                      <div *ngIf="!invoice_checked && sf.submitted  && !time.valid" class="help-block">Time is required</div>
+                       </div> 
+                      
+                        </div>
+                  
+                      <div class="row tmargin">
+                        <div class="col-sm-4">
+                          <input type="checkbox" name="isRecurring" #rtype (ngModelChange)="RtypeCheckbox(rtype.value)" [(ngModel)]="scheduler.isRecurring" [value]="scheduler.isRecurring" >
+                          <b class="lalign">Recurring</b>  
+                      </div>
+                     </div>
+
+                    <div style="width:100%">
+                        <div class="row tmargin">
+                          <div class="col-sm-2">
+                            <h6 class="lalign">Recurring Type</h6>  
+                         </div>
+
+                        <div class="col-sm-10">
+                            <select class="form-control"  style="height:34px" #selectedrtype name="recurringType" [disabled]=recurring_checked  
+                              [(ngModel)]="scheduler.recurringType" #recurringType="ngModel" [value]="scheduler.recurringType" >
+                                <option [value]="rtype" *ngFor="let rtype of rtypes;" [selected]='Daily' >{{rtype}} </option>
+                            </select>
+                            <div *ngIf="!recurring_checked && sf.submitted && !recurringType.valid" class="help-block">RecurringType is required</div>
+                        </div>   
+                    </div> 
+                  </div>
+
+                  <div class="row tmargin" >
+                      <div class="col-sm-1 lalign "></div>
+                          <div class="col-sm-4 ">
+                          <button type="submit" class="btn btn-md" style="background:#2196F3;color:white;margin-bottom:10px;" [disabled]="invoice_checked || !validDate || !sf.form.valid   ">Save</button> 
+                         
+                        </div>
+                     
+                  </div>
+                    </div>
+
+                 
+                    </div>
+                  </form>
+</div>
+
+</ng-template>
+</ngb-tab>
+
+<ngb-tab>
+    <ng-template ngbTabTitle ><b (click)="loadMembeSchedule()">Member Scheduler</b></ng-template>
+    <ng-template ngbTabContent>  
+        <div style="border:solid 3px #F5F5F5;padding-left: 100px;padding-top: 30px;">
+            
+            <!--Member scheduler form -->  
+              <form class="form-inline"  name="form" (ngSubmit)="sf.form.valid && updateMembeSchedule()" #sf="ngForm" novalidate>
+                          
+                  <div class="form-group" style="width:100%" >
+                      
+                                  <!--Check type of schedule-->
+                                  <div class="row" style="width:100%" >
+                                  <div class="col-sm-4">
+                                        <input type="checkbox"  [(ngModel)]="scheduler.isOn" name="isOn"  #mIsOn (ngModelChange)="ItypeCheckboxMember(mIsOn.value)" [value]="scheduler.isOn">
+                                        <b>Member Scheduler</b>
+                                    </div>
+                                  </div> 
+              
+                                   <div style="width:100%" >
+                                    <div class="row tmargin">
+                                    <div class="col-sm-2 col-xsm-2">
+                                       <h6 class="lalign">Schedule Date</h6>  
+                                   </div>
+                                   <div class="col-sm-5">
+                                     <input class="form-control" type="date"  [(ngModel)]="scheduler.date" [disabled]=member_checked
+                                     name="date" #date="ngModel" (mouseleave)="dateValidation()" required>
+                                     <div *ngIf="!mvalidDate" class="form-text text-muted">Please Schedule the date and time from Today.</div>
+                                     <div *ngIf="!member_checked && sf.submitted && !date.valid" class="help-block">Date is required</div>
+                                    </div> 
+                                   
+                                    </div>
+              
+                                    <div class="row tmargin">
+                                      <div class="col-sm-2 col-xsm-2">
+                                         <h6 class="lalign">Schedule Time</h6>  
+                                     </div>
+                                     <div class="col-sm-5">
+                                     <input class="form-control" type="time" [(ngModel)]="scheduler.time" name="time" #time="ngModel"
+                                     [disabled]=member_checked  [value]="scheduler.time" required>
+                                     <div *ngIf="!member_checked && sf.submitted && !time.valid" class="help-block">Time is required</div> 
+                                    </div> 
+                                     
+                                      </div>
+                                
+                                    <div class="row tmargin">
+                                      <div class="col-sm-4">
+                                        <input type="checkbox" name="isRecurring" #mrtype (ngModelChange)="RtypeCheckboxMember(mrtype.value)" [(ngModel)]="scheduler.isRecurring" [value]="scheduler.isRecurring" >
+                                        <b class="lalign">Recurring</b>  
+                                    </div>
+                                   </div>
+              
+                                  <div style="width:100%">
+                                      <div class="row tmargin">
+                                        <div class="col-sm-2">
+                                          <h6 class="lalign">Recurring Type</h6>  
+                                       </div>
+              
+                                      <div class="col-sm-10">
+                                          <select class="form-control"  style="height:34px" #selectedrtype name="recurringType" [(ngModel)]="scheduler.recurringType" [disabled]=mrecurring_checked
+                                            #recurringType="ngModel" [value]="scheduler.recurringType" >
+                                              <option [value]="rtype" *ngFor="let rtype of rtypes;" [selected]='Daily' >{{rtype}} </option>
+                                          </select>
+                                          <div *ngIf="!mrecurring_checked && sf.submitted && !recurringType.valid" class="help-block">RecurringType is required</div>
+                                      </div> 
+                                  </div> 
+                                </div>
+                                
+                                <div class="row tmargin" >
+                                    <div class="col-sm-1 lalign "></div>
+                                        <div class="col-sm-4 ">
+                                        <button type="submit" class="btn btn-md" style="background:#2196F3;color:white;margin-bottom:10px;" [disabled]="member_checked || !mvalidDate || !sf.form.valid   ">Save</button> 
+                                       
+                                      </div>
+                                  </div>
+              
+                                     
+                                  </div>
+                                  </div>
+                                </form>
+            </div>  
+    </ng-template>
+  </ngb-tab>
+</ngb-tabset>
+

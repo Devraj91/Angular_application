@@ -1,0 +1,92 @@
+.star {
+    color: red;
+}
+
+.line {
+    width: 105%;
+    height: 0.1px;
+    background-color: #DCDCDC;
+    margin-left: -15px;
+}
+
+.disabled {
+    cursor: not-allowed;
+}
+
+.c_back {
+    background: white;
+}
+
+.head {
+    text-align: center;
+    color: gray;
+}
+
+.align_btn {
+    text-align: center;
+    padding: 5px 0px 15px 0px;
+}
+
+.fmargin {
+    margin-top: 50px;
+}
+
+.lpadding {
+    padding-left: 10%;
+}
+
+.rbutton {
+    margin-bottom: 40px;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.roption {
+    margin-left: 80px;
+}
+
+.error {
+    border-left: 5px solid red;
+}
+
+.alert {
+    padding: 5px;
+    margin: 0px;
+}
+
+.btn_margin {
+    margin: 40px 0px 20px 0px
+}
+
+.search-box {
+    position: relative;
+    z-index: 2;
+}
+
+.search-input {
+    width: 300px;
+}
+
+.list {
+    list-style: none;
+    padding-left: 0;
+    margin-left: 5px;
+    margin-bottom: 2px;
+    /* background: grey; */
+}
+
+.search-result {
+    top: 75px;
+    border: 1px solid #ced4da;
+    border-radius: 3px;
+    width: 256px;
+    background: #fff;
+    max-height: 240px;
+    overflow-y: auto;
+    cursor: pointer;
+    margin-left: 620px;
+}
+
+.items:hover {
+    color: green;
+}

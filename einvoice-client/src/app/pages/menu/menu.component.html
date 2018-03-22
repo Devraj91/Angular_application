@@ -1,0 +1,25 @@
+<!--<p >
+
+  <a [routerLink] = "['/landingpage']">landingpage! <br/></a>
+  <a [routerLink]="['/emailtemplate']" > email template!<br/></a>
+      menu works!<br/>
+        menu works!<br/>
+      <li>
+            <a (click)="toggle($event)" class="list-group-item">
+                <span *ngIf="!isExpended" class='menu-icon icon-hamburger-menu'></span>
+                <span *ngIf="isExpended" class='menu-icon icon-menuclose'></span>
+            </a>
+        </li>
+</p>
+>-->
+
+<div id="sidebar">
+    <ul class='nav list-group ul_width' >
+       <li *ngFor="let menu of menuList li_width" class="list"  >
+            <a [routerLink]="[menu.url]"  >
+                 <p class='menu-icon icon-{{menu.name}}'></p>
+                <h5 class="hidden-sm hidden-xs h4_style">{{menu.text}}</h5>
+            </a>
+        </li>
+    </ul>
+</div>

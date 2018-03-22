@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title th:remove="all">Reminder - Nasscom | E-Invoice</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style>
+.thead{
+ border: 1px; border-bottom-style: groove;    background-color: lightgray;font-family: monospace;
+}
+.tbody{
+ border: 1px; border-bottom-style: groove;    background-color: lightgray;font-family: monospace;
+}
+.text{
+font-family: monospace;
+}
+</style>
+</head>
+<body>
+	<div style='font-family: Trebuchet MS, Arial, sans-serif'>
+		<div th:utext="${greeting}"></div>
+		<br/>
+		<div th:utext="${description}">description</div>
+		<br />
+		<hr />
+		<span class="text">This is a reminder that you have to pay subscription fee.</span> 
+		<br />
+		<br />
+		<table>
+		<thead class="thead"><tr><th>Invoice Amount(&#8377;)</th><th>Total Paid(&#8377;)</th><th>Balance Amount(&#8377;)</th><th>Due DateTime</th></tr></thead>
+		<tbody class="tbody"><tr><th th:text="${invoiceAmt}">0</th><th th:text="${totalPaid}">0</th><th th:text="${balance}">0</th><th th:text="${date}+' '+${time}">0</th></tr></tbody>
+		</table>
+		<br/>
+		<br/>
+		<div>Regards,</div>
+		<div th:text="${signature}"></div>
+		<div th:text="${designation}"></div>
+		<br />
+		<div th:text="${ps}"></div>
+		<img src="./../img/nasscom_logo.png"></img>
+	</div>
+</body>
+</html>

@@ -1,0 +1,119 @@
+@font-face {
+  font-family: 'icomoon';
+  src:  url('fonts/icomoon.eot?s883yd');
+  src:  url('fonts/icomoon.eot?s883yd#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?s883yd') format('truetype'),
+    url('fonts/icomoon.woff?s883yd') format('woff'),
+    url('fonts/icomoon.svg?s883yd#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-add:before {
+  content: "\e900";
+  color: #ed6704;
+}
+.icon-Attach-an-Existing-Forest:before {
+  content: "\e901";
+  color: #ed6704;
+}
+.icon-attachment:before {
+  content: "\e902";
+  color: #ed6704;
+}
+.icon-calendar:before {
+  content: "\e903";
+}
+.icon-clusters:before {
+  content: "\e904";
+  color: #e5e4e4;
+}
+.icon-configure:before {
+  content: "\e905";
+  color: #ed6704;
+}
+.icon-contact:before {
+  content: "\e906";
+}
+.icon-Create-New-Forest-n-attach:before {
+  content: "\e907";
+  color: #ed6704;
+}
+.icon-Database:before {
+  content: "\e908";
+  color: #e5e4e4;
+}
+.icon-dropdown:before {
+  content: "\e909";
+  color: #5b5c5d;
+}
+.icon-edit:before {
+  content: "\e90a";
+  color: #ed6704;
+}
+.icon-forest:before {
+  content: "\e90b";
+  color: #e5e4e4;
+}
+.icon-group:before {
+  content: "\e90c";
+  color: #e5e4e4;
+}
+.icon-hamburger-menu:before {
+  content: "\e90d";
+  color: #e31b23;
+}
+.icon-Help:before {
+  content: "\e90e";
+  color: #5b5c5d;
+}
+.icon-home:before {
+  content: "\e90f";
+  color: #e5e4e4;
+}
+.icon-host:before {
+  content: "\e910";
+  color: #e5e4e4;
+}
+.icon-ienvoice:before {
+  content: "\e911";
+}
+.icon-link:before {
+  content: "\e912";
+  color: #d0011b;
+}
+.icon-menuclose:before {
+  content: "\e913";
+  color: #e31b23;
+}
+.icon-mimetypes:before {
+  content: "\e914";
+  color: #e5e4e4;
+}
+.icon-search:before {
+  content: "\e915";
+  color: #5b5c5d;
+}
+.icon-security:before {
+  content: "\e916";
+  color: #e5e4e4;
+}
+.icon-user:before {
+  content: "\e917";
+  color: #5b5c5d;
+}

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<taxConfigArtifacts>
+	<taxName>taxName</taxName>
+	<rate>rate</rate>
+	<city>
+		<name>city</name>
+	</city>
+</taxConfigArtifacts>

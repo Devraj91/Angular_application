@@ -1,0 +1,63 @@
+<fieldset>
+  <legend><b>Category Details</b></legend>
+</fieldset>
+
+<!--Add Category -->
+<input type="button" value="Add" class="btn btn-primary" (click)="addCategoryFee()" />
+
+<div style="overflow:auto">
+<!--Category Table grid -->
+<table class="table table-bordered table-striped flow">
+    <thead style="background-color: #006dcc;align-content: center;">
+        <tr class="text">
+            <td>S.No</td>            
+            <td>Category</td>
+            <td>Fee Amount</td>
+            <td >Actions</td>
+        </tr>
+    </thead>
+    <tbody class="text" style="align-content: center;">
+        <tr *ngIf="!categories">No Data to Display</tr>
+        <tr *ngFor="let cat of categories;let i=idx">                
+            <ng-template  [ngTemplateOutlet]="loadTemplate(cat)" [ngOutletContext]="{ $implicit: cat, idx: i }"></ng-template>
+        </tr>
+    </tbody>
+</table>
+</div>
+
+<!--The Html Template for Read-Only Rows-->
+<div>
+    <ng-template #readOnlyTemplate let-cat>
+        <td>{{cat.id}}</td>        
+        <td>{{cat.category}}</td>
+        <td>{{cat.fee}}</td>
+        <td class="text">
+            <div>
+                <input type="button" value="Edit" class="btn btn-default del" (click)="editCategoryFee(cat)" />
+
+                <input type="button" value="Delete" class="btn btn-danger del" (click)="deleteCategoryFee(cat.id)" />
+            </div>
+        </td>
+    </ng-template>
+</div>
+
+<!--The Html Template for Editable Rows-->
+<ng-template #editTemplate>
+    <td>
+        <input type="text" [(ngModel)]="tempCategoryFee.id" readonly disabled />
+    </td>
+    <td *ngIf="!isNewRecord">
+        <input type="text" [(ngModel)]="tempCategoryFee.category" readonly disabled/>
+    </td>
+    <td *ngIf="isNewRecord">
+        <input type="text" [(ngModel)]="tempCategoryFee.category"/>
+    </td>
+    <td>
+        <input type="text" [(ngModel)]="tempCategoryFee.fee" />
+    </td>
+    <td class="text">
+        <input type="button" value="Save" (click)="saveCategoryFee()" class="btn btn-success del" />
+
+        <input type="button" value="Cancel" (click)="cancel()" class="btn btn-warning del" />
+    </td>
+</ng-template>

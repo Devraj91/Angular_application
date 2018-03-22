@@ -1,0 +1,30 @@
+
+<!--Member Subscription fee form -->
+<form  name="form" (ngSubmit)="f.form.valid && updateSubscription() || f.resetForm()" #f="ngForm" novalidate>
+    <fieldset>
+        <legend>Update Member Subscription Fee</legend>
+
+        <label>Category</label>
+        <select name="category" placeholder="Select Categorie" [(ngModel)]="model.category" #category="ngModel" (ngModelChange)="membersByCat($event)" required>
+            <option *ngFor="let c of categories" [ngValue]="c">{{c}}</option>
+        </select>
+        <div *ngIf="f.form.submitted && !category.valid" class="help-block">Please Select Category</div> 
+
+        <label>Member</label>
+        <select name="memberId"  placeholder="Select Member" [(ngModel)]="model.memberId" #memberId="ngModel" required>
+            <option selected="selected" value="ALL" >--ALL--</option>
+            <option *ngFor="let m of members" [ngValue]="m.emailId" >{{m.name}}</option>
+        </select>
+          <div *ngIf="f.form.submitted && !memberId.valid" class="help-block">Please Select Member</div> 
+
+        <label>Subscription Fee</label>
+        <input type="text" name="subscriptionFee" [(ngModel)]="model.subscriptionFee" #subscriptionFee="ngModel" placeholder="Enter Subscription Fee" required>
+        <div *ngIf="f.form.submitted && !subscriptionFee.valid" class="help-block">Enter Subscription Fee</div> 
+
+      <button type="submit" class="btn btn-secondary btn-lg " data-dismiss="modal" [disabled]="!f.form.valid">Update Subscription</button>
+  </fieldset>
+</form>
+
+
+<!--Member data load-->
+<app-memberdetail></app-memberdetail>

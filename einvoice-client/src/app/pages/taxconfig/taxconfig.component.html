@@ -1,0 +1,74 @@
+<fieldset>
+    <legend><b>Tax Details</b></legend>
+</fieldset>
+
+<!--Add tax config -->
+<!-- <input type="button" value="Add" class="btn btn-primary" (click)="addTaxConfig()" /> -->
+
+<div style="overflow:auto">
+    <!--Table grid -->
+    <table class="table table-bordered table-striped flow">
+        <thead style="background-color: #006dcc;color:white; align-content: center;">
+            <tr class="text">
+                <td>S.No</td>
+                <td>Tax Name</td>
+                <td>Rate (%)</td>
+                <td>City</td>
+                <td>Tax Applicability</td>
+                <td>Actions</td>
+            </tr>
+        </thead>
+        <tbody class="text" style="align-content: center;">
+            <tr *ngIf="!taxconfigs">No Data to Display</tr>
+            <tr *ngFor="let tax of taxconfigs;let i=idx">
+                <ng-template [ngTemplateOutlet]="loadTemplate(tax)" [ngOutletContext]="{ $implicit: tax, idx: i }"></ng-template>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<!--The Html Template for Read-Only Rows-->
+<div>
+    <ng-template #readOnlyTemplate let-tax>
+        <td>{{tax.id}}</td>
+        <td>{{tax.taxName}}</td>
+        <td>{{tax.rate}}</td>
+        <td>{{tax.city.name}}</td>
+        <td>{{tax.taxApplicable}}</td>
+        <td class="text">
+            <div>
+                <input type="button" value="Edit" class="btn btn-default del" (click)="editTaxConfig(tax)" />
+
+                <!-- <input type="button" value="Delete" class="btn btn-danger del" (click)="deleteTaxConfig(tax.id)" /> -->
+            </div>
+        </td>
+    </ng-template>
+</div>
+<!--Ends Here-->
+
+<!--The Html Template for Editable Rows-->
+<ng-template #editTemplate>
+    <td>
+        <input type="text" [(ngModel)]="tempTaxconfig.id" readonly disabled />
+    </td>
+    <td>
+        <input type="text" [(ngModel)]="tempTaxconfig.taxName" ng-required="Tax Name required" />
+    </td>
+    <td>
+        <input type="text" [(ngModel)]="tempTaxconfig.rate" ng-required="Rate is required" />
+    </td>
+    <td>
+        <input type="text" [(ngModel)]="tempTaxconfig.city.name" ng-required="City required" />
+    </td>
+    <td>
+        <select name="taxApplicable" [(ngModel)]="tempTaxconfig.taxApplicable">
+               <option *ngFor="let taxApplicable of taxApplicables" [ngValue]="taxApplicable" >{{taxApplicable}}</option>
+        </select>
+    </td>
+    <td class="text">
+        <input type="button" value="Save" (click)="saveTaxConfig()" class="btn btn-success del" />
+
+        <input type="button" value="Cancel" (click)="cancel()" class="btn btn-warning del" />
+    </td>
+</ng-template>
+<!--Ends Here-->

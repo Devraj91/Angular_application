@@ -1,0 +1,13 @@
+.ptabs {
+    padding: 20px;
+    background: red;
+}
+
+.ngbTabContent {
+    background-color: red;
+    /* come on brah, use #fff */
+}
+
+.tab-heading {
+    margin-top: 10px;
+}

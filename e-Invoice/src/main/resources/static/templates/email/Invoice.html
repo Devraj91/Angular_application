@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title th:remove="all">Invitation - Nasscom Election</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<style>
+td {
+	font-size: 14px;
+}
+
+th {
+	border: 1px solid #dddddd;
+	text-align: left;
+	font-size: 14px;
+
+	/*padding: 8px;*/
+}
+
+/*tr:nth-child(even) {
+    background-color: #dddddd;
+}*/
+</style>
+<style type="text/css">
+.odd {
+	background: #b8d1f3;
+}
+/*  Define the background color for all the EVEN background rows  */
+.even {
+	background: #dae5f4;
+}
+</style>
+<body>
+	<div>
+		<div th:utext="${greeting}"></div>
+		<br/>
+		<div th:utext="${description}">description</div>
+		<br />
+		<h3>This is your invoice mail, Please find in attachment and see your balance to pay with us.
+		<br/>Please follow below Payment Url :<br/> <a th:href="${paymentUrl}">Pay Now</a> </h3>
+		<br>
+		<p th:text="${thankYouMsg}">thankYouMsg</p>
+		<br></br>
+		<div>Regards,</div>
+		<div th:text="${signature}"></div>
+		<div th:text="${designation}"></div>
+		<br />
+		<div th:text="${ps}"></div>
+		<img src="./../img/nasscom_logo.png"></img>
+	</div>
+</body>
+</html>

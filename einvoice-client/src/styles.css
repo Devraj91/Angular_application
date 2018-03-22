@@ -1,0 +1,43 @@
+/* You can add global styles to this file, and also import other style files */
+@import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
+
+@import './icomoon/style.css';
+[class^="icon-"]:before,
+[class*=" icon-"]:before {
+    color: inherit;
+}
+
+
+html,body{  
+ max-height: 100%;
+ max-width: 100%;
+background:#222222;
+overflow: auto; 
+}
+
+.ngx-datatable .datatable-header{
+background:#006dcc!important;
+color:white;
+border: 1px solid #DCDCDC;
+
+}
+
+
+.datatable-header-cell{
+    border: 1px solid #DCDCDC!important;
+    height: 47px;
+   text-align: left;
+    padding: 8px ;
+}
+
+.datatable-body-cell-label{
+    border: 1px solid #DCDCDC!important;
+   
+    height: 35px;
+    text-align: left;
+     padding: 5px ;
+}
+
+.datatable-row-odd{
+    background: #F5F5F5;
+}

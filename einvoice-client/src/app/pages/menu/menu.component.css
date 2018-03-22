@@ -1,0 +1,87 @@
+.list a:active {
+  width:100%;
+ background: #C2142E !important;
+
+}
+.list a:focus {
+  width:100%;
+ background: #C2142E !important;
+  
+}
+.list a:hover {
+  width:100%;
+  background: transparent;
+
+
+}
+
+.ul_width{
+  width:100%;
+    line-height: 80px;
+    padding-top: 10px;
+    text-align: center;
+}
+.li_width{
+  width:100%;
+    line-height: 80px;
+}
+
+.menu-icon {
+    padding-top: 5px;
+    font-size: 30px;
+    color:white;
+    text-align: center;
+}
+
+ul > li > a:hover > .menu-icon {
+ 
+  color: #C2142E ;
+
+}
+ul > li > a:focus > .menu-icon {
+  
+ color:white;
+
+}
+
+ul > li > a:hover > .h4_style
+{
+  color: #C2142E ;
+
+}
+ul > li > a:focus > .h4_style
+{
+   color:white;
+
+}
+
+.h4_style
+{    
+    padding-left: 5px;
+    color:white;
+    text-align:center;
+}
+
+a {
+  text-decoration: none;
+  display: inline-block;
+  -webkit-transition: all 200ms ease-in;
+  -webkit-transform: scale(1);
+  -ms-transition: all 200ms ease-in;
+  -ms-transform: scale(1);
+  -moz-transition: all 200ms ease-in;
+  -moz-transform: scale(1);
+  transition: all 200ms ease-in;
+  transform: scale(1);
+}
+a:hover {
+  text-decoration: none;
+  -webkit-transition: all 200ms ease-in;
+  -webkit-transform: scale(1.05);
+  -ms-transition: all 200ms ease-in;
+  -ms-transform: scale(1.05);
+  -moz-transition: all 200ms ease-in;
+  -moz-transform: scale(1.05);
+  transition: all 200ms ease-in;
+  transform: scale(1.05);
+}

@@ -1,0 +1,29 @@
+<div class="wrapper">
+        <toaster-container [toasterconfig]="config" ></toaster-container>
+    <!--Header -->
+    <div class="header">
+      <div style="float: left"><a [routerLink]="['/home']" class="btn btn-link"> <img src="./assets/nasscom.png" alt="Nasscom Logo" width="200" height="60" /></a></div> 
+      <div style="float: center"> <h1>E-Invoice System</h1></div>
+      <div style="float: right;">{{userName}} <a [routerLink]="'/logout'"> Logout</a> </div>
+     </div>
+     <div>
+         <!--Nav -->
+         <div id="sidebar-wrapper" >
+             <app-menu [menuList]="menuList"></app-menu>
+        </div>
+            
+            <!--body -->
+            <div id="main-wrapper"  >
+            <div class="main" >
+                <router-outlet></router-outlet>               
+            </div> 
+        </div>
+               
+    </div>
+
+    <!--Footer -->
+    <div class="footer fixed-bottom">
+        Copyright © 2017 Nasscom.
+    </div>
+
+</div>

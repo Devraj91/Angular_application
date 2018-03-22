@@ -1,0 +1,135 @@
+<fieldset>
+    <legend><b>Addresses</b></legend>
+</fieldset>
+
+<!--Add tax config -->
+<input type="button" value="Add" class="btn btn-primary" title="Add Address" data-toggle="modal" data-target="#add" data-backdrop="false"/>
+
+<div >
+<!--Table grid -->
+<table class="table table-bordered table-striped flow" style="overflow-x:scroll;">
+<thead style="background-color: #006dcc; align-content: center;">
+    <tr class="text" >
+        <td style="width:100px">Branch Name</td>          
+        <td style="width:380px">Street</td>
+        <td style="width:100px">City</td>        
+        <td style="width:100px">Phone</td>
+        <td style="width:80px"> Pin</td>
+        <td style="width:150px">Fax</td>           
+        <td style="width:140px">GST Number</td>
+        <td style="width:200px">Actions</td>
+    </tr>
+</thead>
+<tbody class="text" style="align-content: center;">
+     <tr *ngIf="!addresses" >No Data to Display</tr>
+     <tr *ngFor="let address of addresses;let i=idx">                
+        <ng-template  [ngTemplateOutlet]="loadTemplate(address)" [ngOutletContext]="{ $implicit: address, idx: i }"></ng-template>
+    </tr>
+</tbody>
+</table>
+</div>
+
+<!--The Html Template for Read-Only Rows-->
+<div>
+<ng-template #readOnlyTemplate let-address>    
+    <td>{{address.name}}</td>
+    <td>{{address.street}}</td>
+    <td>{{address.city.name}}</td>
+    <td>{{address.phone}}</td>
+    <td>{{address.pin}}</td>
+    <td>{{address.fax}}</td>
+    <td>{{address.gstNo}}</td>
+   
+    <td class="text">
+        <div>
+            <input type="button"  value="Edit" class="btn btn-default del" (click)="editAddress(address)" />
+
+            <!-- <input type="button"  value="Delete" class="btn btn-danger del" (click)="deleteAddress(address.id)"  /> -->
+        </div>
+    </td>
+</ng-template>
+</div>
+<!--Ends Here-->
+
+<!--The Html Template for Editable Rows-->
+ <ng-template #editTemplate>
+<td>
+    <input type="text" style="width:120px" [(ngModel)]="tempAddress.name" ng-required="Branch Name required"/>
+</td>
+<td>
+    <input type="text" style="width:250px" [(ngModel)]="tempAddress.street" ng-required="Street is required"/>
+</td>
+<td>
+    <input type="text" style="width:120px" [(ngModel)]="tempAddress.city.name" ng-required="City is required"/>
+</td>
+<td>
+    <input type="text" style="width:120px" [(ngModel)]="tempAddress.phone" />
+</td>
+<td>
+    <input type="text" style="width:120px" [(ngModel)]="tempAddress.pin" ng-required="Pin is required"/>
+</td>
+<td>
+    <input type="text" style="width:120px" [(ngModel)]="tempAddress.fax" />
+</td>
+<td>
+    <input type="text" style="width:150px" [(ngModel)]="tempAddress.gstNo" ng-required="GST Number required"/>
+</td>
+
+<td class="text">
+    <input type="button" value="Save" (click)="saveAddress()" class="btn btn-success del" />
+
+    <input type="button" value="Cancel" (click)="cancel()" class="btn btn-warning del" />
+</td>
+</ng-template>
+<!--Ends Here-->
+
+ <!-- Modal -->
+ <div id="add" class="modal fade" role="dialog" style="margin-top:10%;" >
+        <div class="modal-dialog">
+             
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Add New Address</h4>
+              <button type="button" class="close" data-dismiss="modal" #closeBtn >&times;</button>
+            </div>
+            <form [formGroup]="addressForm" (ngSubmit)="addNewAddress(addressForm.value)">
+            <div class="modal-body">                  
+              <div class="row gap form-group">
+                <div class="col-sm-4">Branch Name</div>
+                <div class="col-sm-6"><input class="form-control" type="text" name="name" #amt  formControlName="name" ></div>
+              </div>
+                  <div class="row gap form-group">
+                      <div class="col-sm-4">Street</div>
+                      <div class="col-sm-6"><input class="form-control" type="text" name="street" formControlName="street"></div>
+                    </div>
+                     <div class="row gap form-group">
+                      <div class="col-sm-4">City</div>
+                      <div class="col-sm-6"><input class="form-control" type="text" name="city" formControlName="city"></div>
+                    </div>
+                     <div class="row gap form-group">
+                      <div class="col-sm-4">Phone</div>
+                      <div class="col-sm-6"><input class="form-control" type="text" name="phone" formControlName="phone"></div>
+                    </div>
+                     <div class="row gap form-group">
+                      <div class="col-sm-4">Pin</div>
+                      <div class="col-sm-6"><input class="form-control" type="text" name="pin" formControlName="pin"></div>
+                    </div>
+                     <div class="row gap form-group">
+                      <div class="col-sm-4">Fax</div>
+                      <div class="col-sm-6"><input class="form-control" type="text" name="fax" formControlName="fax"></div>
+                    </div>
+                     <div class="row gap form-group">
+                      <div class="col-sm-4">GST Number</div>
+                      <div class="col-sm-6"><input class="form-control" type="text" name="gstNo" formControlName="gstNo"></div>
+                    </div>                 
+            </div>
+            <div class="modal-footer">
+                    <button #clsBtn type="Submit" class="btn btn-default mouse" >Add Address</button>
+            </div>
+        </form>
+          </div>
+      
+        </div>
+      </div>
+    

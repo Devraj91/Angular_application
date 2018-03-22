@@ -1,0 +1,106 @@
+
+.wrapper {
+  color:white;
+  background:#222222;
+  overflow: hidden;
+ }
+.btn:focus,.btn:active {
+   outline: none !important;
+}
+.row_wrap{
+  background:#222222;color:white;
+}
+
+.align_txt{
+  text-align:center;
+}
+input {
+  outline: 0;
+  border-width: 0 0 2px 0;
+  border-color: gray;
+  background: #222222;
+  color:white;
+  font-size: 20px;
+}
+input:focus {
+  border-color: white;
+    background: #222222;
+  color:white;
+}
+
+.fgt_modal{
+  background:white;
+  color:black;
+  border-width: 2px 2px 2px 2px;
+  border-color: #222222;
+}
+.fgt_pwd{
+  color:#D27578;
+}
+
+.modal_box{
+  border:white solid 2px;
+  box-shadow: 2px 2px 2px 2px #888888;
+}
+.rowmargin{
+  margin: 20px 0px 20px 0px
+}
+.btn_margin{
+   margin: 40px 0px 20px 0px
+}
+
+.menu-icon { 
+    font-size: 150px;
+    background:#222222;
+    text-align: center;
+    padding:120px 10px 10px 10px;
+ 
+}
+
+
+.fade.in {
+  opacity: 1 !important;
+}
+
+.modal.in .modal-dialog {
+  -webkit-transform: translate(0, 0);
+  -ms-transform: translate(0, 0);
+  -o-transform: translate(0, 0);
+  transform: translate(0, 0);
+  
+}
+.modal-backdrop {
+    /* bug fix - no overlay */    
+    display: none;    
+}
+
+.row.row-eq-height {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.btn-secondary{
+  border-color: gray;
+  background: #222222;
+  border-radius: 30px;
+  border-width:2px; 
+  padding: 6px 20px 6px 20px;
+
+}
+
+.btn-secondary:hover{
+   border-color: white;
+    background: #222222;
+   color:white
+}
+
+.btn_align{
+  text-align: right;
+}
+
+.close{
+ opacity:1;
+ color:white;
+}

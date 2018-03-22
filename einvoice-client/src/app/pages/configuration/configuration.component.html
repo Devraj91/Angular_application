@@ -1,0 +1,36 @@
+<div class="container-fluid">
+  <ngb-tabset>
+    <!--Tax Config tab -->
+      <ngb-tab>
+          <ng-template ngbTabTitle><b>Tax Configuration</b></ng-template>
+          <ng-template ngbTabContent>
+              <taxconfig>Loading...</taxconfig>
+             <!-- <div class="tab-heading">
+                  Country:{{countryId}}->State:{{stateId}}->City:{{cityId}}
+              </div>
+              <div class="tab-heading">
+                  <input type="datetime-local" value="date" />
+              </div>
+              <div class="tab-heading">
+                  <country-loading (countryEvent)="recieveCountry($event)" (stateEvent)="recieveState($event)" (cityEvent)="recieveCity($event)">Loading...</country-loading>
+              </div>-->
+          </ng-template>
+      </ngb-tab>
+
+      <!--Categories tab -->
+     <!-- <ngb-tab>
+          <ng-template ngbTabTitle>Subscription</ng-template>
+          <ng-template ngbTabContent>
+                <app-membersubscription>Loading...</app-membersubscription>
+          </ng-template>
+      </ngb-tab>-->
+
+      <ngb-tab>
+          <ng-template ngbTabTitle><b>Categories</b></ng-template>
+          <ng-template ngbTabContent>
+              <app-categories>Loading ...</app-categories>
+          </ng-template>
+      </ngb-tab>
+      
+  </ngb-tabset>
+</div>

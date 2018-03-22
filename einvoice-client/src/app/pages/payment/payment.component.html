@@ -1,0 +1,66 @@
+<div class="wrapper" align="center">
+
+    <!--CCavenue Request -->
+    <!--Payment kit html -->
+    <div *ngIf="isRequest">
+        <form name="customerData" style="background:white;width:50%;margin-top:10%;padding:40px;" (ngSubmit)="processingPayment()" #f="ngForm" novalidate>
+            <h3 style="text-align:center;margin:0px 0px 10px 0px;background:green;color:white;padding:20px">Member Payment</h3>
+            <br/>
+            <div *ngIf="baseAmount_flag" style="margin-bottom:20px;color:green;">Payment Already done.No Balance Amount.</div>
+            <table width="99%" height="100" style="margin-left:20px" align="center">
+                <tr>
+                    <td>Member Name</td>
+                    <td><input type="text" class="form-control col-sm-4" readonly name="memberName" id="member_name" value="" [(ngModel)]="memberName" /> </td>
+                </tr>
+                <tr>
+                    <td>Base Amount</td>
+                    <td style="margin-left:0px" class="row">
+                        <input type="text" class="form-control col-sm-4" name="amount" readonly [(ngModel)]="amt" />
+                        <span style="margin-top:6px">&nbsp;&nbsp;&nbsp;TDS&nbsp;</span> <input class="form-control col-sm-1" style="text-decoration:none;zoom:1.5;margin-top:6px" [value]='true' type="checkbox" [(ngModel)]="amtTds" (click)="enableAmtTds()"
+                            name="amtTds">
+
+                        <select [hidden]="selamttds" class="form-control col-sm-2" style="height:36px;padding:2px;margin-right:6px" #tdsamt name="amttds" [(ngModel)]="amttds" (ngModelChange)="selAmtTds(tdsamt.value)">
+                  <option [value]="" disabled="true" selected="true">Select TDS</option> 
+                <option [value]="amttds" *ngFor="let amttds of Arrtds;">{{amttds+"%"}} </option>
+               </select>
+                        <input type="text" name="finalAmt" class="form-control col-sm-3" #famt [(ngModel)]="finalAmt" readonly>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Tax</td>
+                    <td style="margin-left:0px" class="row">
+                        <input type="text" name="tax" class="form-control col-sm-4" #t [(ngModel)]="tax" readonly>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td>Total Amount Payable :</td>
+                    <td style="margin-left:0px" class="row">
+                        <input type="text" class="form-control col-sm-4" name="amtPaid" [(ngModel)]="amtPaid" readonly>
+
+                    </td>
+                </tr>
+                <br/>
+                <tr>
+                    <td></td>
+                    <td class="row">
+                        <div class="col-sm-2"></div>
+                        <button type="submit" class="btn btn-default mouse col-sm-3" [disabled]="baseAmount_flag" click="processingPayment()" style="background:green;color:white">Pay</button>
+
+                    </td>
+                </tr>
+            </table>
+
+        </form>
+    </div>
+
+    <!-- CCavenue Response -->
+    <div *ngIf="!isRequest">
+        <!--Auto submit form to ccavanue-->
+        <div class="ccavenueResponse">{{ encResponse }}</div>
+    </div>
+    <div id="redirect"></div>
+
+    <!--Redirect to ccavanue-->
+    <div (ngModelChange)="document.redirect.submit();" ng-bind-html="encRequest">{{ encRequest }}</div>
+</div>

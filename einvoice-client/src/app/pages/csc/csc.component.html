@@ -1,0 +1,22 @@
+<div> <label>Country:</label>
+    <select [(ngModel)]="selectedCountry.id" (change)="onSelectCountry($event.target.value)">
+      <option value="0">--Select--</option>
+            <option *ngFor="let country of countries"
+                   value= {{country.id}}>{{country.name}}
+            </option>
+      </select>
+    <label>State:</label>
+    <select [(ngModel)]="selectedState.id" (change)="onSelectState($event.target.value)">
+      <option value="0">--Select--</option>
+      <option *ngFor="let state of states "
+            value= {{state.id}}>{{state.name}}
+      </option>
+      </select>
+    <label>City:</label>
+    <select [(ngModel)]="selectedCity.id" (change)="onSelectCity($event.target.value)">
+      <option value="0">--Select--</option>
+      <option *ngFor="let city of cities "
+            value= {{city.id}}>{{city.name}}
+      </option>
+      </select></div>
+<taxconfig></taxconfig>

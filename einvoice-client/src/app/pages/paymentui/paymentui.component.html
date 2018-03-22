@@ -1,0 +1,60 @@
+<div class="contanier" style="background: white">
+<h1>PAYMENT</h1>
+    <div class="row gap form-group">
+        <div class="col-sm-1">Member ID</div>
+        <div class="col-sm-2"><input  type="text" class="form-control" name="name"  [(ngModel)]="membershipID" readonly></div>
+  </div>
+
+  <div class="row gap form-group" >
+        <div class="col-sm-1">Amount</div>
+        <div class="col-sm-2"><input  type="text" name="amount" class="form-control" [(ngModel)]="amt" #a (ngModelChange)="setAmt(a.value)" readonly></div>
+        <div class="col-sm-4">
+            <div class="row" >   
+              <div class="col-sm-1" > 
+                <input class="form-control" style="text-decoration:none;zoom:1.5;margin-top:2px;" [value]='true' type="checkbox" [(ngModel)]="amtTds"
+                 (click)="enableAmtTds()" name="amtTds"  >
+              </div>
+              <div class="col-sm-3">Include TDS</div>     
+              <div class="col-sm-2">
+                  <select [hidden]="selamttds" class="form-control"  style="height:34px;padding:2px" #tdsamt name="amttds"
+                  [(ngModel)]="amttds"  (ngModelChange)="selAmtTds(tdsamt.value)" >
+                      <option disabled="true" selected="true" [value]="">Select TDS</option> 
+                    <option [value]="amttds" *ngFor="let amttds of Arrtds;">{{amttds+"%"}} </option>
+                   </select>
+              </div>
+              <div class="col-sm-3"><input  type="text" name="finalAmt" class="form-control" #famt [(ngModel)]="finalAmt" readonly></div>
+            </div>
+          </div>     
+          
+        </div>
+        <div class="row gap form-group" >
+            <div class="col-sm-1">Tax</div>
+            <div class="col-sm-2"><input  type="text" name="tax" class="form-control" #t [(ngModel)]="tax" (ngModelChange)="setTax(t.value)" readonly ></div>           
+            <div class="col-sm-4">
+                <div class="row " >   
+                  <div class="col-sm-1" > 
+                    <input class="form-control" style="text-decoration:none;zoom:1.5;margin-top:2px;margin-right:0px" [value]='true' type="checkbox" [(ngModel)]="taxTds"
+                     (click)="enableTaxTds()" name="taxTds"  >
+                  </div>
+                  <div class="col-sm-3">Include TDS</div>
+                  <div class="col-sm-2">
+                      <select [hidden]="seltaxtds" class="form-control"  style="height:34px;padding:2px" #tdstax name="taxtds"
+                      [(ngModel)]="taxtds"  (ngModelChange)="selTaxTds(tdstax.value)" >
+                          <option [value]="">Select TDS</option> 
+                        <option [value]="taxtds" *ngFor="let taxtds of Arrtds;">{{taxtds+"%"}} </option>
+                       </select>
+                  </div>
+                  <div class="col-sm-3"><input  type="text" name="finalTax" class="form-control" #ftax [(ngModel)]="finalTax" readonly ></div>
+                </div>
+              </div>   
+              
+            </div>
+            <div class="row gap form-group" >
+                <div class="col-sm-5"></div>
+                <div class="col-sm-1"><input  type="text" class="form-control" name="amtPaid" class="form-control" [(ngModel)]="amtPaid" readonly></div>
+            </div>
+            <div class="row gap form-group" >
+                <div class="col-sm-5"></div>
+                <div class="col-sm-3"><button type="button" class="btn btn-default mouse" >Pay</button></div>
+            </div>
+</div>

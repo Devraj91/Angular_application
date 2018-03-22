@@ -1,0 +1,82 @@
+.ngx-datatable {
+    background: white!important;
+    border: 1px solid #DCDCDC;
+}
+
+.search_box {
+    padding: 2px;
+    margin-top: 15px;
+    width: 220px;
+    height: 35px;
+    border: 1px solid #DCDCDC;
+}
+
+.gap {
+    margin: 10px;
+}
+
+.fade.in {
+    opacity: 1 !important;
+}
+
+.modal.in .modal-dialog {
+    -webkit-transform: translate(0, 0);
+    -ms-transform: translate(0, 0);
+    -o-transform: translate(0, 0);
+    transform: translate(0, 0);
+}
+
+.modal-backdrop {
+    /* bug fix - no overlay */
+    display: none;
+}
+
+.icon-formatting {
+    margin-left: 20px;
+    cursor: pointer;
+}
+
+.mouse {
+    cursor: pointer;
+}
+
+.search-box {
+    position: relative;
+    z-index: 2;
+}
+
+.search-input {
+    width: 290px;
+}
+
+.list {
+    list-style: none;
+    padding-left: 0;
+    margin-left: 5px;
+    margin-bottom: 2px;
+}
+
+.search-result {
+    position: absolute;
+    top: 45px;
+    left: 160px;
+    border: 1px solid #ced4da;
+    border-radius: 3px;
+    width: 300px;
+    background: #fff;
+    max-height: 240px;
+    cursor: pointer;
+}
+
+
+
+.items:hover {
+    color: green;
+}
+
+.icon_black{
+    color:black;
+    margin-left: 20px;
+    cursor: pointer;
+    font-size:20px;
+}
